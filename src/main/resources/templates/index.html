@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" >
+<head >
+  <title >Title</title >
+  <!-- Required meta tags -->
+  <meta charset="utf-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./css/textEditor.css" >
+</head >
+<body >
+
+<div class="container" >
+  <div class="jumbotron jumbotron-fluid text-center" >
+    <div class="container_one" >
+      <h1 class="display-3" >Welcome to Bulk Email sender</h1 >
+    </div >
+  </div >
+  <form action="/mailSend" method="post" enctype="multipart/form-data" >
+    <div class="form-group" >
+      <label for="hostname" >Hostname</label >
+      <input type="text" class="form-control" name="hostname" id="hostname" aria-describedby="hostnameId"
+             placeholder="Please enter hostname" required >
+      <small id="hostnameId" class="form-text text-muted" >Please enter hostname</small >
+    </div >
+    <div class="form-group" >
+      <label for="port" >Port</label >
+      <input type="number" min="0" class="form-control" name="port" id="port" aria-describedby="portId"
+             placeholder="Please enter port" required >
+      <small id="portId" class="form-text text-muted" >Please enter port</small >
+    </div >
+    <div class="form-group" >
+      <label for="company_name" >Company Name</label >
+      <input type="text" class="form-control" name="port" id="company_name" aria-describedby="company_nameId"
+             placeholder="Please enter company name" required >
+      <small id="company_nameId" class="form-text text-muted" >Please enter company name</small >
+    </div >
+    <div class="form-group" >
+      <label for="username" >Email</label >
+      <input type="email" class="form-control" name="username" id="username" aria-describedby="emailHelpId"
+             placeholder="Please enter email" required >
+      <small id="emailHelpId" class="form-text text-muted" >Please enter your email id</small >
+    </div >
+    <div class="form-group" >
+      <label for="password" >Password</label >
+      <input type="password" class="form-control" name="password" id="password" placeholder="Please enter Password"
+             required >
+    </div >
+    <div class="form-group" >
+      <label for="subject" >Email Subject</label >
+      <input type="text"
+             class="form-control" name="subject" id="subject" aria-describedby="helpId"
+             placeholder="Please enter Email Subject" required >
+      <small id="helpId" class="form-text text-muted" >Please enter Email subject</small >
+    </div >
+    <div class="form-group" >
+      <label for="emailList" >Sender Email List</label >
+      <textarea class="form-control" name="emailList" id="emailList" rows="3"
+                aria-describedby="emailListId" required ></textarea >
+      <small id="emailListId" class="form-text text-muted" >Please enter Email separate with ","</small >
+    </div >
+    <div class="form-group" >
+      <label for="text-editor" >Message</label >
+      <div class="container" >
+        <input type="hidden" name="message" id="messageValue" >
+        <textarea id="text-editor" ></textarea >
+      </div >
+    </div >
+    <div class="form-group" >
+      <button type="reset" class="btn btn-warning" >
+        <i class="fa fa-recycle" aria-hidden="true" ></i >
+        Reset
+      </button >
+      <button type="submit" class="btn btn-success" >
+        <i class="fa fa-thumbs-up" aria-hidden="true" ></i >
+        Submit
+      </button >
+    </div >
+  </form >
+</div >
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script >
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script >
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script >
+<script src="./js/fontawesomekit.js" ></script >
+<script src="./js/textEditor.js" ></script >
+
+<script >
+
+</script >
+</body >
+</html >

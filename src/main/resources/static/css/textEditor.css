@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    margin: 10px;
+}
+
+html, * {
+    font-family: 'Inter';
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fafafa;
+    line-height: 1.6;
+}
+
+.lead {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+
+#buttonsToolbar {
+    width: fit-content;
+    background-color: aqua;
+    padding: 0.3125rem;
+}
+
+#buttonsToolbar > button:first-child {
+    margin: 0 0.3125rem 0 0;
+}
+
+#buttonsToolbar > button:last-child {
+    margin: 0;
+}
+
+#buttonsToolbar > button {
+    width: 1.875rem;
+    height: 1.875rem;
+    margin: 0 0.3125rem 0 0;
+    outline: none;
+    cursor: pointer;
+    border: 0.0625rem solid rgba(0, 0, 0, .1);
+    border-radius: 0.1875rem;
+    box-shadow: 0 0.5rem 1.125rem rgba(0, 0, 0, .1);
+}
+
+#textEditor {
+    /*width: 43.75rem;*/
+    /*height: 25rem;*/
+    margin-top: 0.3125rem;
+    padding: 0.3125rem;
+    border: 0.0625rem solid rgba(0, 0, 0, .1);
+    border-radius: 0.1875rem;
+    outline: none;
+    box-shadow: 0 0.5rem 1.125rem rgba(0, 0, 0, .1);
+}
+
+.active {
+    background-color: rgb(214, 214, 214)
+}
+
