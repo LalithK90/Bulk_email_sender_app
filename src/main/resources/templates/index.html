@@ -13,7 +13,7 @@
 <body >
 
 <div class="container" >
-  <div class="jumbotron jumbotron-fluid text-center" >
+  <div class="jumbotron jumbotron-fluid text-center bg-success" >
     <div class="container_one" >
       <h1 class="display-3" >Welcome to Bulk Email sender</h1 >
     </div >
@@ -80,6 +80,14 @@
     </div >
   </form >
 </div >
+
+<div class="container">
+  <div class="alert alert-success" role="alert" >
+    <h3 data-th-text="${email_s_count}" class="font-weight-bold text-info"></h3>
+    <h3 data-th-text="${email_r_count}" class="font-weight-bold text-warning"></h3>
+    <p data-th-text="${message}" class="font-weight-bold"></p>
+  </div >
+</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script >
