@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="./css/textEditor.css" >
+  <link  data-th-href="@{/css/textEditor.css}" >
 </head >
 <body >
 
@@ -18,7 +18,7 @@
       <h1 class="display-3" >Welcome to Bulk Email sender</h1 >
     </div >
   </div >
-  <form action="/mailSend" method="post" enctype="multipart/form-data" >
+  <form data-th-action="@{/mailSend}" method="post" enctype="multipart/form-data" >
     <div class="form-group" >
       <label for="hostname" >Hostname</label >
       <input type="text" class="form-control" name="hostname" id="hostname" aria-describedby="hostnameId"
@@ -81,7 +81,7 @@
   </form >
 </div >
 
-<div class="container">
+<div class="container" data-th-if="${message==null}">
   <div class="alert alert-success" role="alert" >
     <h3 data-th-text="${email_s_count}" class="font-weight-bold text-info"></h3>
     <h3 data-th-text="${email_r_count}" class="font-weight-bold text-warning"></h3>
@@ -93,8 +93,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script >
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script >
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script >
-<script src="./js/fontawesomekit.js" ></script >
-<script src="./js/textEditor.js" ></script >
+<script data-th-src="@{/js/fontawesome.js}" ></script >
+<script data-th-src="@{/js/textEditor.js}" ></script >
 
 <script >
 
