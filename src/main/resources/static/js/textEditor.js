@@ -189,3 +189,5 @@ $("#textEditor").keyup(function () {
     clearFunction();
     $("#messageValue").val($(this).html())
 })
+
+
