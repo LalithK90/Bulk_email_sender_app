@@ -33,7 +33,7 @@ public class EmailSendController {
     //call to email service and get values
     model.addAttribute("email_s_count","sample");
     model.addAttribute("email_r_count","sample");
-    model.addAttribute("message","sample");
+    model.addAttribute("message","Successfully Your emails were send");
     System.out.println(email.toString());
     return "/index";
   }

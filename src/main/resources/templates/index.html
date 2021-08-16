@@ -19,44 +19,29 @@
   <form data-th-action="@{/mailSend}" method="post" enctype="multipart/form-data" >
     <div class="form-row" >
       <div class="form-group col-4" >
-        <label for="hostname" >Email Client</label >
+        <label >Email Client</label >
         <div class="form-group" >
           <div class="form-check form-check-inline" >
-            <input class="form-check-input" type="radio" name="email_client" id="inlineRadio1" value="Google" required >
+            <input class="form-check-input" type="radio" name="email_client" id="inlineRadio1" value="Google" >
             <label class="form-check-label" for="inlineRadio1" >Google</label >
           </div >
           <div class="form-check form-check-inline" >
-            <input class="form-check-input" type="radio" name="email_client" id="inlineRadio2" value="AWSSec" required >
+            <input class="form-check-input" type="radio" name="email_client" id="inlineRadio2" value="AWSSec" >
             <label class="form-check-label" for="inlineRadio2" >AWSSec</label >
           </div >
           <div class="form-check form-check-inline" >
-            <input class="form-check-input" type="radio" name="email_client" id="inlineRadio3" value="Outlook"
-                   required >
+            <input class="form-check-input" type="radio" name="email_client" id="inlineRadio3" value="Outlook" >
             <label class="form-check-label" for="inlineRadio3" >Outlook</label >
           </div >
         </div >
       </div >
       <div class="form-group col-4" >
-        <label for="hostname" >Hostname</label >
-        <input type="text" class="form-control" name="hostname" id="hostname" aria-describedby="hostnameId"
-               placeholder="Please enter hostname" required >
-        <small id="hostnameId" class="form-text text-muted" >Please enter hostname</small >
-      </div >
-      <div class="form-group col-4" >
-        <label for="port" >Port</label >
-        <input type="number" min="0" class="form-control" name="port" id="port" aria-describedby="portId"
-               placeholder="Please enter port" required >
-        <small id="portId" class="form-text text-muted" >Please enter port</small >
-      </div >
-    </div >
-    <div class="form-row" >
-      <div class="form-group col-6" >
         <label for="username" >Email</label >
         <input type="email" class="form-control" name="username" id="username" aria-describedby="emailHelpId"
                placeholder="Please enter email" required >
         <small id="emailHelpId" class="form-text text-muted" >Please enter your email id</small >
       </div >
-      <div class="form-group col-6" >
+      <div class="form-group col-4" >
         <label for="password" >Password</label >
         <input type="password" class="form-control" name="password" id="password" placeholder="Please enter Password"
                required >
@@ -78,10 +63,15 @@
       </div >
     </div >
     <div class="form-group" >
+      <label for="recipient_email1" >Sender Email List (already list with ",")</label >
+      <input type="text" name="emailList" id="recipient_email1"  class="form-control" value=""  >
+      <small id="recipient_emailId" class="form-text text-muted" >Please enter Email separate with ","</small >
+    </div >
+    <div class="form-group" >
       <label for="recipient_email" >Sender Email List</label >
       <input type="email" name="recipient_email" id="recipient_email" class="form-control" >
       <small id="emailListId" class="form-text text-muted" >Please enter Email separate with ","</small >
-      <input type="email" name="emailList" id="created_email" class="form-control" hidden >
+      <input type="text" name="emailList" id="created_email" class="form-control" value="" hidden >
     </div >
     <div class="form-group" >
       <label for="text-editor" >Message</label >
@@ -102,6 +92,7 @@
     </div >
   </form >
 </div >
+
 <div class="container text-left" data-th-if="${!#strings.isEmpty(message)}" >
   <div class="alert alert-success" role="alert" >
     <h3 data-th-text="${email_s_count}" class="font-weight-bold text-info" ></h3 >
@@ -110,7 +101,7 @@
   </div >
 </div >
 
-<div class="container-fluid" >
+<div class="container text-left" >
   <p >This is open source app to send bulk email </p >
   <p >Project source url : <a href="https://github.com/LalithK90/Bulk_email_sender_app" target="_self" >
 

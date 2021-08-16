@@ -249,7 +249,7 @@ function validateEmail(email) {
 
                                     emailListCreate();
                                     $(this).parent().remove();
-                                    e.preventDefault();
+                                   e.preventDefault();
                                 })
                             )
                         );

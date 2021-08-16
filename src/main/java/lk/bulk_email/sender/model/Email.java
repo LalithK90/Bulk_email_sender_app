@@ -14,8 +14,7 @@ import java.util.HashSet;
 @ToString
 public class Email {
 
-  private String email_client,hostname, port, username, password, company_name, subject, message;
+  private String email_client, username, password, company_name, subject, message;
 
   private HashSet< String > emailList;
-  private  String recipient_email;
 }
