@@ -24,55 +24,26 @@ import java.util.Properties;
 
 @Service
 public class EmailService {
-  private final JavaMailSender javaMailSender;
-  // to access application properties entered details
-  private final Environment environment;
 
-  @Autowired
-  public EmailService(JavaMailSender javaMailSender, Environment environment) {
-    this.javaMailSender = javaMailSender;
-    this.environment = environment;
-  }
+  public boolean sendEmail(String receiverEmail, String subject, String username, String password,
+                                   String email_client, String message_user){
+    Properties props;
+    switch ( email_client ) {
+      case "Google":
+        props = GmailConfig();
+        break;
+      case  "AWSSec":
+        props = AWSSecConfig();
+        break;
+      default:
+        props = OutlookConfig();
 
 
-  public void sendEmail(String receiverEmail, String subject, String message) throws
-      MailException {
-    SimpleMailMessage mailMessage = new SimpleMailMessage();
-
-
-    try {
-      mailMessage.setTo(receiverEmail);
-      mailMessage.setFrom("-(Samarasinghe Super - Kadawatha - (not reply))");
-      mailMessage.setSubject(subject);
-      mailMessage.setText(message);
-
-      javaMailSender.send(mailMessage);
-    } catch ( Exception e ) {
-      System.out.println("Email Exception " + e.toString());
     }
-  }
 
-  public boolean sendMailWithImage(String receiverEmail, String subject, String fileName) {
-    //final String username = "excellenthealthsolution@gmail.com";
-    final String username = environment.getProperty("spring.mail.username");
-    //final String password = "dinesh2018";
-    final String password = environment.getProperty("spring.mail.password");
-
-    // Assuming you are sending email through gmail
-    String host = environment.getProperty("spring.mail.host");
-    //String host = "smtp.gmail.com";
-    String port = environment.getProperty("spring.mail.port");
-    //String port = "587";
-
-    Properties props = new Properties();
-    props.put("mail.smtp.auth", "true");
-    props.put("mail.smtp.starttls.enable", "true");
-    props.put("mail.smtp.host", host);
-    props.put("mail.smtp.port", port);
 
     // Get the Session object.
-    Session session = Session.getInstance(props,
-                                          new Authenticator() {
+    Session session = Session.getInstance(props,                                          new Authenticator() {
                                             protected PasswordAuthentication getPasswordAuthentication() {
                                               return new PasswordAuthentication(username, password);
                                             }
@@ -94,60 +65,29 @@ public class EmailService {
       // Create the message part
       BodyPart messageBodyPart = new MimeBodyPart();
 
+      messageBodyPart.setText(message_user);
+
       // Now set the actual message
-      messageBodyPart.setText("Please find the attachment");
+      messageBodyPart.setText("\n This email was send using Bulk Email Sender : ");
 
-      // Create a multipart message
-      Multipart multipart = new MimeMultipart();
+//      // Create a multipart message
+//      Multipart multipart = new MimeMultipart();
+//
+//      // Set text message part
+//      multipart.addBodyPart(messageBodyPart);
 
-      // Set text message part
-      multipart.addBodyPart(messageBodyPart);
-
-      // Part two is attachment
-      messageBodyPart = new MimeBodyPart();
-      // set file path to include email
-      String filename = fileName;
-      DataSource source = new FileDataSource(filename);
-      messageBodyPart.setDataHandler(new DataHandler(source));
-      messageBodyPart.setFileName(filename);
-      multipart.addBodyPart(messageBodyPart);
-
-      // Send the complete message parts
-      message.setContent(multipart);
 
       // Send message
       Transport.send(message);
 
       System.out.println("Sent message successfully....");
+
       return true;
     } catch ( MessagingException e ) {
       throw new RuntimeException(e);
 
     }
 
-  }
-  public void sendMailWithInlineResources(String to, String subject, String fileToAttach) {
-    MimeMessagePreparator preparator = new MimeMessagePreparator() {
-      public void prepare(MimeMessage mimeMessage) throws Exception {
-        mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
-        mimeMessage.setFrom(new InternetAddress("admin@gmail.com"));
-        mimeMessage.setSubject(subject);
-
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-
-        helper.setText("<html><body><img src='cid:identifier1234'></body></html>", true);
-
-        FileSystemResource res = new FileSystemResource(new File(fileToAttach));
-        helper.addInline("identifier1234", res);
-      }
-    };
-
-    try {
-      javaMailSender.send(preparator);
-    } catch ( MailException ex ) {
-      // simply log it and go on...
-      System.err.println(ex.getMessage());
-    }
   }
 
   //email client configuration
@@ -179,7 +119,7 @@ public class EmailService {
     return props;
   }
 
-  private Properties OutlookConfig(String host, String port) {
+  private Properties OutlookConfig() {
     Properties props = new Properties();
     props.put("mail.smtp.host", "smtp-mail.outlook.com");
     props.put("mail.smtp.port", 587);
