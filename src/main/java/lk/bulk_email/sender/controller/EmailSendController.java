@@ -19,12 +19,6 @@ public class EmailSendController {
 
   private final EmailService emailService;
 
-  @GetMapping
-  public String firstPage(Model model) {
-    model.addAttribute("page_title", "Welcome to Bulk Email sender");
-    return "/index";
-  }
-
   @PostMapping( "/mailSend" )
   public String mailSend(@ModelAttribute Email email, Model model) {
     int request_t_count = email.getEmailList().size();
