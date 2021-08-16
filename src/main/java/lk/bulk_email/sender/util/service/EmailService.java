@@ -126,64 +126,6 @@ public class EmailService {
     }
 
   }
-
-  private void AWSSecConfig() {
-/*
-spring.mail.host=email-smtp.us-east-1.amazonaws.com
-spring.mail.port=465
-spring.mail.username=xxxxxxxxxxx
-spring.mail.password=xxxxxxxxxxx
-
-spring.mail.properties.mail.smtp.starttls.enable=true
-spring.mail.properties.mail.smtp.starttls.required=true
-spring.mail.properties.mail.smtp.ssl.enavle=true
-
-spring.mail.properties.mail.protocol=smtps
-
-spring.mail.properties.mail.smtps.auth=true
-* */
-  }
-
-  private void GmailConfig() {
-    /*
-    spring.mail.host=smtp.gmail.com
-spring.mail.port=25
-spring.mail.username=admin@gmail.com
-spring.mail.password=xxxxxx
-
-# Other properties
-spring.mail.properties.mail.debug=true
-spring.mail.properties.mail.transport.protocol=smtp
-spring.mail.properties.mail.smtp.auth=true
-spring.mail.properties.mail.smtp.connectiontimeout=5000
-spring.mail.properties.mail.smtp.timeout=5000
-spring.mail.properties.mail.smtp.writetimeout=5000
-
-# TLS , port 587
-spring.mail.properties.mail.smtp.starttls.enable=true
-
-# SSL, post 465
-#spring.mail.properties.mail.smtp.socketFactory.port = 465
-#spring.mail.properties.mail.smtp.socketFactory.class = javax.net.ssl.SSLSocketFactory
-    * */
-  }
-
-  private void OutlookConfig() {
-    /*
-    spring.mail.host=smtp-mail.outlook.com
-spring.mail.port=587
-spring.mail.username=outlookuserid@outlook.com
-spring.mail.password=xxxxxx
-
-spring.mail.properties.mail.protocol=smtp
-spring.mail.properties.mail.tls=true
-
-spring.mail.properties.mail.smtp.auth=true
-spring.mail.properties.mail.smtp.starttls.enable=true
-spring.mail.properties.mail.smtp.ssl.trust=smtp-mail.outlook.com
-    * */
-  }
-
   public void sendMailWithInlineResources(String to, String subject, String fileToAttach) {
     MimeMessagePreparator preparator = new MimeMessagePreparator() {
       public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -207,4 +149,47 @@ spring.mail.properties.mail.smtp.ssl.trust=smtp-mail.outlook.com
       System.err.println(ex.getMessage());
     }
   }
+
+  //email client configuration
+  private Properties AWSSecConfig() {
+    Properties props = new Properties();
+    props.put("mail.smtp.host", "email-smtp.us-west-2.amazonaws.com");
+    props.put("mail.port", 465);
+    props.put("mail.smtp.starttls.enable", "true");
+    props.put("mail.smtp.starttls.required", "true");
+    props.put("mail.smtp.ssl.enavle", "true");
+    props.put("mail.protocol", "smtps");
+    props.put("mail.smtp.auth", "true");
+    return props;
+  }
+
+  private Properties GmailConfig() {
+    Properties props = new Properties();
+    props.put("mail.smtp.host", "smtp.gmail.com");
+    props.put("mail.smtp.port", 587);
+    props.put("mail.debug", "true");
+    props.put("mail.transport.protocol", "smtp");
+    props.put("mail.smtp.auth", "true");
+    props.put("mail.smtp.connectiontimeout", "5000");
+    props.put("mail.smtp.timeout", "5000");
+    props.put("mail.smtp.writetimeout", "5000");
+    props.put("mail.smtp.starttls.enable", "true");
+    props.put("mail.smtp.socketFactory.port", "465");
+    props.put("mail.smtp.socketFactory.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+    return props;
+  }
+
+  private Properties OutlookConfig(String host, String port) {
+    Properties props = new Properties();
+    props.put("mail.smtp.host", "smtp-mail.outlook.com");
+    props.put("mail.smtp.port", 587);
+    props.put("mail.protocol", "smtp");
+    props.put("mail.tls", "true");
+    props.put("mail.smtp.auth", "true");
+    props.put("mail.smtp.starttls.enable", "true");
+    props.put("mail.smtp.ssl.trust", "smtp-mail.outlook.com");
+    return props;
+  }
+
+
 }

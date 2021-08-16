@@ -16,7 +16,7 @@ textEditor.setAttribute('contentEditable', 'true');
 ///textEditor
 
 //functions
-function insertAfter (insertObject) {
+function insertAfter(insertObject) {
     insertObject.forEach(insertObj => {
         insertObj.reference.parentNode.insertBefore(insertObj.new, insertObj.reference.nextSibling);
     });
@@ -188,6 +188,98 @@ function clearFunction() {
 $("#textEditor").keyup(function () {
     clearFunction();
     $("#messageValue").val($(this).html())
+    textEditorSize();
 })
 
+$(document).ready(function () {
+    textEditorSize();
+})
 
+function textEditorSize() {
+    let html = $("#textEditor").html();
+    if (html.length === 0) {
+        $("#textEditor").attr("class", "textEditor")
+    } else {
+        $("#textEditor").removeAttr("class")
+    }
+}
+
+let email_list = [];
+
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
+
+(function ($) {
+    $.fn.multipleInput = function () {
+        return this.each(function () {
+            // list of email addresses as unordered list
+            $list = $('<ul/>');
+            // input
+            var $input = $('<input type="email" id="email_search" class="email_search multiemail"/>').keyup(function (event) {
+                if (event.which === 13 || event.which === 32 || event.which === 188) {
+                    if (event.which === 188) {
+                        var val = $(this).val().slice(0, -1);// remove space/comma from value
+                    } else {
+                        var val = $(this).val(); // key press is space or comma
+                    }
+                    if (validateEmail(val)) {
+                        // append to list of emails with remove button
+                        $list.append($('<li class="multipleInput-email"><span>' + val + '</span></li>')
+                            .append($('<a href="#" class="multipleInput-close" title="Remove"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">\n' +
+                                '  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>\n' +
+                                '  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>\n' +
+                                '</svg></a>')
+                                .click(function (e) {
+                                    let email_lists = [];
+
+                                    let click = $(this).parent()[0].innerHTML;
+                                    let first_part = click.split(`</span>`)[0];
+                                    let second_part = first_part.split('>')[1];
+
+                                    for (let i = 0; i < email_list.length; i++) {
+                                        if (email_list[i] !== second_part) {
+                                            email_lists.push(email_list[i]);
+                                        }
+                                    }
+
+                                    email_list = null;
+                                    email_list = email_lists;
+
+                                    emailListCreate();
+                                    $(this).parent().remove();
+                                    e.preventDefault();
+                                })
+                            )
+                        );
+                        $(this).attr('placeholder', 'Enter email');
+                        let email = $(this).val();
+                        email_list.push(email.split(',')[0]);
+                        emailListCreate();
+                        // empty input
+                        $(this).val('');
+                    } else {
+                        swal({
+                            title: "Check Again!",
+                            text: "Please enter valid email id, Thanks!",
+                            icon: "error",
+                        });
+                    }
+                }
+            });
+            // container div
+            var $container = $('<div class="multipleInput-container" />').click(function () {
+                $input.focus();
+            });
+            // insert elements into DOM
+            $container.append($list).append($input).insertAfter($(this));
+            return $(this).hide();
+        });
+    };
+})(jQuery);
+$('#recipient_email').multipleInput();
+
+function emailListCreate() {
+    $('#created_email').val(email_list);
+}
