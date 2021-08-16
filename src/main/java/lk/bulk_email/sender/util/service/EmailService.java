@@ -1,38 +1,24 @@
 package lk.bulk_email.sender.util.service;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import java.io.File;
 import java.util.Properties;
 
 @Service
 public class EmailService {
 
   public boolean sendEmail(String receiverEmail, String subject, String username, String password,
-                                   String email_client, String message_user){
+                           String email_client, String message_user, String company_name) {
     Properties props;
     switch ( email_client ) {
       case "Google":
         props = GmailConfig();
         break;
-      case  "AWSSec":
+      case "AWSSec":
         props = AWSSecConfig();
         break;
       default:
@@ -43,17 +29,17 @@ public class EmailService {
 
 
     // Get the Session object.
-    Session session = Session.getInstance(props,                                          new Authenticator() {
-                                            protected PasswordAuthentication getPasswordAuthentication() {
-                                              return new PasswordAuthentication(username, password);
-                                            }
-                                          });
+    Session session = Session.getInstance(props, new Authenticator() {
+      protected PasswordAuthentication getPasswordAuthentication() {
+        return new PasswordAuthentication(username, password);
+      }
+    });
     try {
       // Create a default MimeMessage object.
       Message message = new MimeMessage(session);
 
       // Set From: header field of the header.
-      message.setFrom(new InternetAddress(username));
+      message.setFrom(new InternetAddress("-(" + company_name + ")"));
 
       // Set To: header field of the header.
       message.setRecipients(Message.RecipientType.TO,
@@ -61,20 +47,7 @@ public class EmailService {
 
       // Set Subject: header field
       message.setSubject(subject);
-
-      // Create the message part
-      BodyPart messageBodyPart = new MimeBodyPart();
-
-      messageBodyPart.setText(message_user);
-
-      // Now set the actual message
-      messageBodyPart.setText("\n This email was send using Bulk Email Sender : ");
-
-//      // Create a multipart message
-//      Multipart multipart = new MimeMultipart();
-//
-//      // Set text message part
-//      multipart.addBodyPart(messageBodyPart);
+      message.setContent(message_user, "text/html");
 
 
       // Send message
