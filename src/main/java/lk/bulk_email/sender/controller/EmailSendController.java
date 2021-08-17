@@ -18,11 +18,12 @@ public class EmailSendController {
   private final EmailService emailService;
 
   @PostMapping( "/mailSend" )
-  public String mailSend(@ModelAttribute Email email, Model model) {
+  public String mailSend(@ModelAttribute Email email, Model model) throws InterruptedException {
 
     int request_t_count = email.getEmailList().size();
     int email_s_count = 0;
     int email_r_count = 0;
+
     List< String > email_list = new ArrayList<>(email.getEmailList());
 
     for ( String s : email_list ) {
@@ -34,10 +35,10 @@ public class EmailSendController {
       } else {
         email_r_count = email_r_count + 1;
       }
+      Thread.sleep(1000);
     }
 
 
-    //call to email service and get values
     model.addAttribute("request_t_count", request_t_count);
     model.addAttribute("email_s_count", email_s_count);
     model.addAttribute("email_r_count", email_r_count);

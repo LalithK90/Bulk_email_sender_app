@@ -64,7 +64,7 @@
     </div >
     <div class="form-group" >
       <label for="recipient_email1" >Sender Email List (already list with ",")</label >
-      <input type="text" name="emailList" id="recipient_email1"  class="form-control" value=""  >
+      <input type="text" name="emailList" id="recipient_email1" class="form-control" value="" >
       <small id="recipient_emailId" class="form-text text-muted" >Please enter Email separate with ","</small >
     </div >
     <div class="form-group" >
@@ -95,8 +95,12 @@
 
 <div class="container text-left" data-th-if="${!#strings.isEmpty(message)}" >
   <div class="alert alert-success" role="alert" >
-    <h3 data-th-text="${email_s_count}" class="font-weight-bold text-info" ></h3 >
-    <h3 data-th-text="${email_r_count}" class="font-weight-bold text-warning" ></h3 >
+    <h3 class="font-weight-bold text-info" >
+      Successfully email send count <span data-th-text="${email_s_count}" ></span >
+    </h3 >
+    <h3 class="font-weight-bold text-warning" >
+      So sorry unable to send email count <span data-th-text="${email_r_count}" ></span >
+    </h3 >
     <p data-th-text="${message}" class="font-weight-bold" ></p >
   </div >
 </div >
