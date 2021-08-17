@@ -35,7 +35,7 @@ public class EmailSendController {
       } else {
         email_r_count = email_r_count + 1;
       }
-      Thread.sleep(1000);
+      Thread.sleep(1500);
     }
 
 
